@@ -27,6 +27,8 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
+    'use client';
+
     // Make both fields required and message a string
     type ActionState = {
         message: string;
