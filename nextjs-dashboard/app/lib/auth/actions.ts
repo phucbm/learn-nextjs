@@ -2,6 +2,7 @@
 import {AuthError} from "next-auth";
 import {z} from "zod";
 import {signIn} from "@/auth";
+import {getUser} from "@/app/lib/auth/get-user-by-email";
 
 const SignUpSchema = z.object({
     id: z.string(),
@@ -28,7 +29,17 @@ const LogInSchema = z.object({
         invalid_type_error: 'Please enter a valid email address.',
         required_error: 'Email is required',
     })
-        .email('Invalid email address format'),
+        .email('Invalid email address format')
+        .refine(
+            async (email) => {
+                const user = await getUser(email);
+                console.log(`User: ${user}`);
+                return !!user;
+            },
+            {
+                message: 'This email is not registered.'
+            }
+        ),
     password: z.string({
         required_error: 'Password is required',
     })
@@ -48,7 +59,7 @@ export async function authenticate(
     formData: FormData,
 ) {
     // Validate form fields using Zod
-    const validatedFields = LogInSchema.safeParse({
+    const validatedFields = await LogInSchema.safeParseAsync({
         email: formData.get('email'),
         password: formData.get('password')
     });
