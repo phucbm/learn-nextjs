@@ -9,7 +9,14 @@ import Link from "next/link";
 import {authenticate, AuthState} from "@/app/lib/auth/actions";
 
 export default function LoginForm() {
-    const initialState: AuthState = {message: null, errors: {}};
+    const initialState: AuthState = {
+        message: '',
+        errors: {},
+        formValues: {
+            email: '',
+            password: ''
+        }
+    };
     const [state, formAction, isPending] = useActionState(authenticate, initialState);
 
     return (
@@ -33,6 +40,7 @@ export default function LoginForm() {
                                 type="text"
                                 name="email"
                                 placeholder="Enter your email address"
+                                defaultValue={state.formValues?.email || ''}
                             />
                             <AtSymbolIcon
                                 className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"/>
