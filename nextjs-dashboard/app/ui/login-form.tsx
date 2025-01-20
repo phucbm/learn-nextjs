@@ -1,22 +1,16 @@
 'use client';
 
 import {lusitana} from '@/app/ui/fonts';
-import {
-    AtSymbolIcon,
-    KeyIcon,
-    ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
+import {AtSymbolIcon, KeyIcon,} from '@heroicons/react/24/outline';
 import {ArrowRightIcon, UserPlusIcon} from '@heroicons/react/20/solid';
 import {Button} from '@/app/ui/button';
 import {useActionState} from 'react';
 import Link from "next/link";
-import {authenticate} from "@/app/lib/auth/actions";
+import {authenticate, AuthState} from "@/app/lib/auth/actions";
 
 export default function LoginForm() {
-    const [errorMessage, formAction, isPending] = useActionState(
-        authenticate,
-        undefined,
-    );
+    const initialState: AuthState = {message: null, errors: {}};
+    const [state, formAction, isPending] = useActionState(authenticate, initialState);
 
     return (
         <form action={formAction} className="space-y-3">
@@ -36,13 +30,20 @@ export default function LoginForm() {
                             <input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="email"
-                                type="email"
+                                type="text"
                                 name="email"
                                 placeholder="Enter your email address"
-                                required
                             />
                             <AtSymbolIcon
                                 className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"/>
+                        </div>
+                        <div id="email-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.email &&
+                                state.errors.email.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>
+                                        {error}
+                                    </p>
+                                ))}
                         </div>
                     </div>
                     <div className="mt-4">
@@ -59,11 +60,17 @@ export default function LoginForm() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter password"
-                                required
-                                minLength={6}
                             />
                             <KeyIcon
                                 className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"/>
+                        </div>
+                        <div id="password-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.password &&
+                                state.errors.password.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>
+                                        {error}
+                                    </p>
+                                ))}
                         </div>
                     </div>
                 </div>
@@ -80,18 +87,6 @@ export default function LoginForm() {
                     </Link>
                 </div>
 
-                <div
-                    className="flex h-8 items-end space-x-1"
-                    aria-live="polite"
-                    aria-atomic="true"
-                >
-                    {errorMessage && (
-                        <>
-                            <ExclamationCircleIcon className="h-5 w-5 text-red-500"/>
-                            <p className="text-sm text-red-500">{errorMessage}</p>
-                        </>
-                    )}
-                </div>
             </div>
         </form>
     );
