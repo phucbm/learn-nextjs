@@ -30,16 +30,18 @@ const LogInSchema = z.object({
         required_error: 'Email is required',
     })
         .email('Invalid email address format')
-        .refine(
-            async (email) => {
+        .superRefine(async (email, ctx) => {
+            if (email) {  // Only check if previous validations passed
                 const user = await getUser(email);
-                console.log(`User: ${user}`);
-                return !!user;
-            },
-            {
-                message: 'This email is not registered.'
+
+                if (!user) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: 'This email is not registered.'
+                    });
+                }
             }
-        ),
+        }),
     password: z.string({
         required_error: 'Password is required',
     })
