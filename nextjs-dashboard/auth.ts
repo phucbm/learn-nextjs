@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import EmailProvider from 'next-auth/providers/nodemailer';
 import {authConfig} from './auth.config';
 import {z} from 'zod';
 import bcrypt from 'bcrypt';
@@ -9,6 +10,17 @@ import {getUser} from "@/app/lib/auth/get-user-by-email";
 export const {auth, signIn, signOut} = NextAuth({
     ...authConfig,
     providers: [
+        EmailProvider({
+            server: {
+                host: process.env.EMAIL_SERVER_HOST,
+                port: process.env.EMAIL_SERVER_PORT,
+                auth: {
+                    user: process.env.EMAIL_SERVER_USER,
+                    pass: process.env.EMAIL_SERVER_PASSWORD,
+                },
+            },
+            from: process.env.EMAIL_FROM,
+        }),
         Credentials({
             async authorize(credentials) {
                 const parsedCredentials = z
