@@ -65,7 +65,7 @@ export async function authenticate(
     formData: FormData,
 ) {
     let email = formData.get('email') as string;
-    let password = formData.get('password') as string;
+    // let password = formData.get('password') as string;
 
     // Validate form fields using Zod
     const validatedFields = await LogInSchema.safeParseAsync({
@@ -85,7 +85,7 @@ export async function authenticate(
 
     // Prepare data for insertion into the database
     email = validatedFields.data.email;
-    password = validatedFields.data.password;
+    // password = validatedFields.data.password;
     // console.log(`Email: ${email}, Password: ${password}`);
 
     try {
