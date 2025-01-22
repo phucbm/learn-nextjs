@@ -98,3 +98,8 @@ export async function authenticate(
         formValues: {email},
     };
 }
+
+
+export async function githubSignIn() {
+    await signIn('github')
+}

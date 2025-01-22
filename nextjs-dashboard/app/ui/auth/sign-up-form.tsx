@@ -7,6 +7,7 @@ import {Button} from "@/app/ui/button";
 import {ArrowRightIcon} from "@heroicons/react/20/solid";
 import Link from "next/link";
 import {authenticate, AuthState} from "@/app/lib/auth/actions";
+import {authConfig} from "@/auth.config";
 
 export default function SignUpForm() {
     const initialState: AuthState = {
@@ -115,7 +116,7 @@ export default function SignUpForm() {
                     </Button>
                     <Link
                         className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-                        href="/login">
+                        href={authConfig.pages.signIn}>
                         Log in
                         <ArrowRightIcon className="ml-auto h-5 w-5"/>
                     </Link>
