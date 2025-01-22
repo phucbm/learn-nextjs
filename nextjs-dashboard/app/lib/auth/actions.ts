@@ -4,26 +4,6 @@ import {z} from "zod";
 import {signIn} from "@/auth";
 import {getUser} from "@/app/lib/auth/get-user-by-email";
 
-// const SignUpSchema = z.object({
-//     id: z.string(),
-//     email: z.string({
-//         invalid_type_error: 'Please enter a valid email address.',
-//         required_error: 'Email is required',
-//     })
-//         .email('Invalid email address format')  // Validates proper email format
-//         .min(5, 'Email must be at least 5 characters')
-//         .max(100, 'Email must be less than 100 characters'),
-//
-//     password: z.string({
-//         required_error: 'Password is required',
-//     })
-//         .min(8, 'Password must be at least 8 characters')
-//         .max(100, 'Password must be less than 100 characters')
-//         .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-//         .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-//         .regex(/[0-9]/, 'Password must contain at least one number')
-//         .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character')
-// });
 const LogInSchema = z.object({
     email: z.string({
         invalid_type_error: 'Please enter a valid email address.',
@@ -117,4 +97,9 @@ export async function authenticate(
         message: 'Database Error: Failed to Log In.',
         formValues: {email},
     };
+}
+
+
+export async function githubSignIn() {
+    await signIn('github')
 }
