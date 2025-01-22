@@ -1,4 +1,13 @@
-import type {NextAuthConfig} from 'next-auth';
+import type {DefaultSession, NextAuthConfig} from 'next-auth';
+
+declare module 'next-auth' {
+    interface Session {
+        user: {
+            provider?: string | any; // Add the provider to the user object
+            // ... other user properties
+        } & DefaultSession['user'];
+    }
+}
 
 export const authConfig = {
     pages: {
@@ -6,8 +15,8 @@ export const authConfig = {
     },
     callbacks: {
         authorized({auth, request: {nextUrl}}) {
+            console.log('Authorized callback', auth, nextUrl);
             const isLoggedIn = !!auth?.user;
-            console.log(auth)
 
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             if (isOnDashboard) {
@@ -18,6 +27,21 @@ export const authConfig = {
             }
             return true;
         },
+        async session({session, token}) {
+            console.log('Session callback', session, token);
+            if (session.user && token.provider) {
+                session.user.provider = token.provider;
+            }
+            return session;
+        },
+        async jwt({token, account}) {
+            console.log('JWT callback', account, token);
+            if (account) {
+                // Save the provider info to the token
+                token.provider = account.provider;
+            }
+            return token;
+        }
     },
     providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;
