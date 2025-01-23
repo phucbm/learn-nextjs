@@ -2,11 +2,11 @@
 
 import {lusitana} from '@/app/ui/fonts';
 import {AtSymbolIcon, KeyIcon,} from '@heroicons/react/24/outline';
-import {ArrowRightIcon, UserPlusIcon} from '@heroicons/react/20/solid';
+import {ArrowRightIcon} from '@heroicons/react/20/solid';
 import {Button} from '@/components/ui/button';
 import {useActionState} from 'react';
-import Link from "next/link";
 import {authenticate, AuthState, githubSignIn} from "@/app/lib/auth/actions";
+import {Github} from "lucide-react";
 
 export default function LoginForm() {
     const initialState: AuthState = {
@@ -32,7 +32,7 @@ export default function LoginForm() {
                                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                 htmlFor="email"
                             >
-                                Email
+                                Email (user@nextmail.com)
                             </label>
                             <div className="relative">
                                 <input
@@ -60,7 +60,7 @@ export default function LoginForm() {
                                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                 htmlFor="password"
                             >
-                                Password
+                                Password (123456)
                             </label>
                             <div className="relative">
                                 <input
@@ -88,18 +88,22 @@ export default function LoginForm() {
                         <Button className="mt-4 w-full" aria-disabled={isPending}>
                             Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50"/>
                         </Button>
-                        <Link
-                            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-                            href="/sign-up">
-                            Create an account
-                            <UserPlusIcon className="ml-auto h-5 w-5 text-gray-600"/>
-                        </Link>
+                        {/*<Link*/}
+                        {/*    className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"*/}
+                        {/*    href="/sign-up">*/}
+                        {/*    Create an account*/}
+                        {/*    <UserPlusIcon className="ml-auto h-5 w-5 text-gray-600"/>*/}
+                        {/*</Link>*/}
                     </div>
 
                 </div>
             </form>
-            <form action={githubSignIn}>
-                <button type="submit">Sign in with GitHub</button>
+            <form action={githubSignIn} className="text-center p-6">
+                <p className="mb-4">or</p>
+                <Button type="submit" className="w-full">
+                    Sign in with GitHub
+                    <Github className="ml-auto h-5 w-5 text-gray-50"/>
+                </Button>
             </form>
         </>
     )
