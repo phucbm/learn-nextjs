@@ -1,6 +1,6 @@
 import React from 'react';
 import {auth, signOut} from "@/auth";
-import {SidebarMenu, SidebarMenuButton, SidebarMenuItem} from "@/components/ui/sidebar";
+import {SidebarMenu, SidebarMenuItem} from "@/components/ui/sidebar";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {LogOut} from "lucide-react";
 import {Button} from "@/components/ui/button";

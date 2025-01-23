@@ -1,4 +1,4 @@
-import {SidebarProvider, useSidebar} from "@/components/ui/sidebar";
+import {SidebarProvider} from "@/components/ui/sidebar";
 import AppSidebar from '@/app/ui/dashboard/sidenav';
 import React from "react";
 import {CustomTrigger} from "@/app/ui/dashboard/custom-sidebar-trigger";
