@@ -56,8 +56,9 @@ export default function HomePage() {
 
                 <Card className="border-none shadow-lg overflow-hidden">
                     <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8">
-                        <CardTitle className={`${lusitana.className} text-3xl md:text-4xl font-bold`}>Next.js
-                            Dashboard</CardTitle>
+                        <CardTitle className={`${lusitana.className} text-3xl md:text-4xl font-bold`}>
+                            <h2>Next.js Dashboard</h2>
+                        </CardTitle>
                         <CardDescription className="text-lg md:text-xl text-blue-100">
                             This dashboard app was built using the Next.js framework and these technologies:
                         </CardDescription>
