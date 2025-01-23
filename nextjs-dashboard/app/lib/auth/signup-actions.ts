@@ -23,7 +23,7 @@ const SignUpSchema = z.object({
 });
 
 export async function handleSignUp(
-    prevState: any,
+    prevState: unknown,
     formData: FormData,
 ) {
     const validatedFields = await SignUpSchema.safeParseAsync({
@@ -36,15 +36,15 @@ export async function handleSignUp(
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Please fix the errors below.',
-            formValues: { email: formData.get('email') }
+            formValues: {email: formData.get('email')}
         };
     }
 
-    const { email, password } = validatedFields.data;
+    const {email, password} = validatedFields.data;
 
     try {
         // Store credentials temporarily with an expiration
-        await createTempUser({ email, password });
+        await createTempUser({email, password});
 
         // Send verification email
         await signIn('email', {
@@ -54,12 +54,12 @@ export async function handleSignUp(
 
         return {
             message: 'Verification email sent! Please check your inbox.',
-            formValues: { email }
+            formValues: {email}
         };
     } catch (error) {
         return {
             message: error instanceof Error ? error.message : 'Something went wrong',
-            formValues: { email }
+            formValues: {email}
         };
     }
 }
