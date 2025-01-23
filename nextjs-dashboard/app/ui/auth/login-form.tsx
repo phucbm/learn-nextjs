@@ -3,7 +3,7 @@
 import {lusitana} from '@/app/ui/fonts';
 import {AtSymbolIcon, KeyIcon,} from '@heroicons/react/24/outline';
 import {ArrowRightIcon, UserPlusIcon} from '@heroicons/react/20/solid';
-import {Button} from '@/app/ui/button';
+import {Button} from '@/components/ui/button';
 import {useActionState} from 'react';
 import Link from "next/link";
 import {authenticate, AuthState, githubSignIn} from "@/app/lib/auth/actions";

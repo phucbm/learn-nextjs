@@ -3,7 +3,7 @@
 import React, {useActionState} from 'react';
 import {lusitana} from "@/app/ui/fonts";
 import {AtSymbolIcon, KeyIcon} from "@heroicons/react/24/outline";
-import {Button} from "@/app/ui/button";
+import {Button} from "@/components/ui/button";
 import {ArrowRightIcon} from "@heroicons/react/20/solid";
 import Link from "next/link";
 import {authenticate, AuthState} from "@/app/lib/auth/actions";
