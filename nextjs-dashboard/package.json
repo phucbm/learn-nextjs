@@ -16,6 +16,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@radix-ui/react-visually-hidden": "^1.1.1",
     "@tailwindcss/forms": "^0.5.9",
+    "@vercel/analytics": "^1.4.1",
     "@vercel/postgres": "^0.10.0",
     "autoprefixer": "10.4.20",
     "bcryptjs": "^2.4.3",
